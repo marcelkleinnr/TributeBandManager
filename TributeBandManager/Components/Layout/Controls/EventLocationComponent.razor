@@ -1,0 +1,14 @@
+﻿@using TributeBandManager.Components.Models
+<p>
+    @eventLocation.Name is in @eventLocation.City
+</p>
+
+@code {
+    private EventLocation eventLocation = new EventLocation
+        {
+            City = "Andernach",
+            Distance = 0,
+            Name = "Andernach Rockt",
+            Region = "Rheinland-Pfalz",
+        };
+}
