@@ -1,10 +1,38 @@
 ﻿@page "/eventlocations"
+@using TributeBandManager.Components.Models
 
 <h3>EventLocations</h3>
 <br />
 <br />
-<EventLocationComponent></EventLocationComponent>
+@foreach (string cityName in eventLocationsByCity.Keys)
+{
+    string city = cityName;
+    <button type="button" @onclick="() => SetSelectedCity(city)">@cityName</button>
+}
+
+<p>Selected: @selectedCity</p>
+
+<ul>
+    @foreach (EventLocation eventLocation in eventLocations.Where(e => e.City == selectedCity))
+    {
+        <li>@eventLocation.Name in @eventLocation.City is @eventLocation.Distance km away.</li>
+    }
+</ul>
 
 @code {
+    private List<EventLocation> eventLocations = EventLocationsRepository.GetEventLocations();
+    private Dictionary<string, List<EventLocation>> eventLocationsByCity;
+    private string selectedCity = string.Empty;
 
+    protected override void OnInitialized()
+    {
+        eventLocationsByCity = eventLocations
+            .GroupBy(e => e.City ?? "unknown")
+            .ToDictionary(g => g.Key, g => g.ToList());
+    }
+
+    private void SetSelectedCity(string city)
+    {
+        selectedCity = city;
+    }
 }

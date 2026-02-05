@@ -10,15 +10,15 @@
             new EventLocation { Id = 4, Name = "Rhein in Flammen", City = "Koblenz" },
             new EventLocation { Id = 5, Name = "Burgfestspiele Mayen", City = "Mayen" },
             new EventLocation { Id = 6, Name = "Kultur im Park", City = "Bad Neuenahr-Ahrweiler" },
-            new EventLocation { Id = 7, Name = "Rock am Ring", City = "Nürburgring" },
-            new EventLocation { Id = 8, Name = "Summerjam Festival", City = "Köln" },
-            new EventLocation { Id = 9, Name = "Open Flair Festival", City = "Eschenburg" },
-            new EventLocation { Id = 10, Name = "Wacken Open Air", City = "Wacken" },
-            new EventLocation { Id = 11, Name = "Hurricane Festival", City = "Scheeßel" },
-            new EventLocation { Id = 12, Name = "Southside Festival", City = "Neuhausen ob Eck" },
-            new EventLocation { Id = 13, Name = "Fusion Festival", City = "Lärz" },
-            new EventLocation { Id = 14, Name = "Melt! Festival", City = "Ferropolis" },
-            new EventLocation { Id = 15, Name = "Parookaville", City = "Weeze" }
+            new EventLocation { Id = 7, Name = "Rock am Ring", City = "Koblenz" },
+            new EventLocation { Id = 8, Name = "Summerjam Festival", City = "Koblenz" },
+            new EventLocation { Id = 9, Name = "Open Flair Festival", City = "Koblenz" },
+            new EventLocation { Id = 10, Name = "Wacken Open Air", City = "Neuwied" },
+            new EventLocation { Id = 11, Name = "Hurricane Festival", City = "Neuwied" },
+            new EventLocation { Id = 12, Name = "Southside Festival", City = "Neuwied" },
+            new EventLocation { Id = 13, Name = "Fusion Festival", City = "Andernach" },
+            new EventLocation { Id = 14, Name = "Melt! Festival", City = "Andernach" },
+            new EventLocation { Id = 15, Name = "Parookaville", City = "Andernach" }
         };
 
         public static void AddEventLocation(EventLocation eventLocation)
