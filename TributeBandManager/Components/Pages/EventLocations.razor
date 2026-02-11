@@ -1,5 +1,6 @@
 ﻿@page "/eventlocations"
 @using TributeBandManager.Components.Models
+@inject NavigationManager NavigationManager
 
 <h3>EventLocations</h3>
 <br />
@@ -16,12 +17,15 @@
 </div>
 
 <br />
-<br />
 
 <ul>
-    @foreach (EventLocation eventLocation in eventLocations.Where(e => e.City == selectedCity))
+    @foreach (EventLocation eventLocation in eventLocations.Where(e => e.City == "Andernach"))
     {
-        <li>@eventLocation.Name in @eventLocation.City is @eventLocation.Distance km away.</li>
+        <li>
+            @eventLocation.Name in @eventLocation.City is @eventLocation.Distance km away.
+            &nbsp;
+            <a href="/eventlocations/edit" class="btn btn-link">Edit</a>
+        </li>
     }
 </ul>
 
@@ -40,5 +44,6 @@
     private void SetSelectedCity(string city)
     {
         selectedCity = city;
+        //NavigationManager.NavigateTo("/eventlocations/edit?city={city}");
     }
 }
