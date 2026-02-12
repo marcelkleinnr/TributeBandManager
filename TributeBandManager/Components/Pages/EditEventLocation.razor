@@ -1,11 +1,37 @@
 ﻿@page "/eventlocations/{Id:int}"
+@using TributeBandManager.Components.Models
 
 <h3>Edit EventLocation</h3>
 <br />
 <br />
-@Id
+
+@if (eventLocation != null)
+{
+    <p>
+        @eventLocation.Name
+    </p>
+    <p>
+        @eventLocation.City
+    </p>
+    <p>
+        @eventLocation.Region
+    </p>
+    <p>
+        @eventLocation.Distance
+    </p>
+}
+
+<br />
+<a href="/eventlocations" class="btn btn-primary">Close</a>
 
 @code {
     [Parameter]
     public int Id { get; set; }
+
+    private EventLocation? eventLocation { get; set; }
+
+    protected override void OnParametersSet()
+    {
+        eventLocation = EventLocationsRepository.GetEventLocationById(Id);
+    }
 }
