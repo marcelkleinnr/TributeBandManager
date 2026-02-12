@@ -24,7 +24,7 @@
         <li>
             @eventLocation.Name in @eventLocation.City is @eventLocation.Distance km away.
             &nbsp;
-            <a href="/eventlocations/edit" class="btn btn-link">Edit</a>
+            <a href="/eventlocations/@eventLocation.Id" class="btn btn-link">Edit</a>
         </li>
     }
 </ul>
@@ -32,7 +32,6 @@
 @code {
     private List<EventLocation> eventLocations = EventLocationsRepository.GetEventLocations();
     private Dictionary<string, List<EventLocation>> eventLocationsByCity;
-    private string selectedCity = string.Empty;
 
     protected override void OnInitialized()
     {
@@ -43,7 +42,6 @@
 
     private void SetSelectedCity(string city)
     {
-        selectedCity = city;
-        //NavigationManager.NavigateTo("/eventlocations/edit?city={city}");
+        NavigationManager.NavigateTo("/eventlocations/edit?city={city}");
     }
 }

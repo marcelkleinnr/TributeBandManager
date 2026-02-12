@@ -1,7 +1,11 @@
-﻿@page "/eventlocations/edit"
+﻿@page "/eventlocations/{Id:int}"
 
 <h3>Edit EventLocation</h3>
+<br />
+<br />
+@Id
 
 @code {
-
+    [Parameter]
+    public int Id { get; set; }
 }
