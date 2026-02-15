@@ -56,7 +56,7 @@
             }
         }
 
-        public static bool UpdateEventLocation(EventLocation eventLocation)
+        public static void UpdateEventLocation(EventLocation eventLocation)
         {
             EventLocation? eventLocationToUpdate = eventLocations.FirstOrDefault(el => el.Id == eventLocation.Id);
             if (eventLocationToUpdate != null)
@@ -65,12 +65,6 @@
                 eventLocationToUpdate.City = eventLocation.City;
                 eventLocationToUpdate.Distance = eventLocation.Distance;
                 eventLocationToUpdate.Region = eventLocation.Region;
-
-                return true;
-            }
-            else
-            {
-                return false;
             }
         }
 

@@ -6,7 +6,9 @@
 <br />
 @if (eventLocation != null)
 {
-    <EditForm Model="eventLocation" FormName="@formName" OnSubmit="Submit">
+    <EditForm Model="eventLocation" FormName="@formName" OnValidSubmit="Submit">
+        <DataAnnotationsValidator></DataAnnotationsValidator>
+        <ValidationSummary></ValidationSummary>
         <InputNumber @bind-Value="eventLocation.Id" hidden></InputNumber>
         <div class="row mb-3">
             <div class="col-2">
@@ -14,6 +16,9 @@
             </div>
             <div class="col-6">
                 <InputText @bind-Value="eventLocation.Name" class="form-control"></InputText>
+            </div>
+            <div class="col">
+                <ValidationMessage For="() => eventLocation.Name"></ValidationMessage>
             </div>
         </div>
         <div class="row mb-3">
@@ -23,6 +28,20 @@
             <div class="col-6">
                 <InputText @bind-Value="eventLocation.City" class="form-control"></InputText>
             </div>
+            <div class="col">
+                <ValidationMessage For="() => eventLocation.City"></ValidationMessage>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-2">
+                <label class="col-form-label">Region</label>
+            </div>
+            <div class="col-6">
+                <InputText @bind-Value="eventLocation.Region" class="form-control"></InputText>
+            </div>
+            <div class="col">
+                <ValidationMessage For="() => eventLocation.Region"></ValidationMessage>
+            </div>
         </div>
         <div class="row mb-3">
             <div class="col-2">
@@ -30,6 +49,9 @@
             </div>
             <div class="col-6">
                 <InputNumber @bind-Value="eventLocation.Distance" class="form-control"></InputNumber>
+            </div>
+            <div class="col">
+                <ValidationMessage For="() => eventLocation.Distance"></ValidationMessage>
             </div>
         </div>
 

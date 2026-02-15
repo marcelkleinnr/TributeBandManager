@@ -1,11 +1,16 @@
-﻿namespace TributeBandManager.Components.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace TributeBandManager.Components.Models
 {
     public class EventLocation
     {
         public int Id { get; set; }
+        [Required]
         public string? Name { get; set; }
-        public string? City { get; set; }      
+        [Required]
+        public string? City { get; set; }
         public int Distance { get; set; }
+        [Required]
         public string? Region { get; set; }
     }
 }
