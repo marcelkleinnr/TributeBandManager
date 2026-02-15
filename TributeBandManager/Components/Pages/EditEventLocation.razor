@@ -4,10 +4,10 @@
 <h3>Edit EventLocation</h3>
 <br />
 <br />
-
 @if (eventLocation != null)
 {
-    <EditForm Model="eventLocation">
+    <EditForm Model="eventLocation" FormName="@formName" OnSubmit="Submit">
+        <InputNumber @bind-Value="eventLocation.Id" hidden></InputNumber>
         <div class="row mb-3">
             <div class="col-2">
                 <label class="col-form-label">Name</label>
@@ -32,19 +32,35 @@
                 <InputNumber @bind-Value="eventLocation.Distance" class="form-control"></InputNumber>
             </div>
         </div>
+
+        <br />
+        <button class="btn btn-primary" type="submit">Update</button>
+        <br />
+        <br />
+        <a href="/eventlocations" class="btn btn-primary">Close</a>
     </EditForm>
 }
-
-<a href="/eventlocations" class="btn btn-primary">Close</a>
 
 @code {
     [Parameter]
     public int Id { get; set; }
 
+    [SupplyParameterFromForm]
     private EventLocation? eventLocation { get; set; }
+
+    private const string formName = "formEventlocation";
 
     protected override void OnParametersSet()
     {
-        eventLocation = EventLocationsRepository.GetEventLocationById(Id);
+        // Retrieve only once in the beginning, when event location is null. Otherwise, this would override the user input on every change.
+        eventLocation ??= EventLocationsRepository.GetEventLocationById(Id);
+    }
+
+    private void Submit()
+    {
+        if (eventLocation != null)
+        {
+            EventLocationsRepository.UpdateEventLocation(eventLocation);
+        }
     }
 }
