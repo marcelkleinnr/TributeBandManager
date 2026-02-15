@@ -7,21 +7,34 @@
 
 @if (eventLocation != null)
 {
-    <p>
-        @eventLocation.Name
-    </p>
-    <p>
-        @eventLocation.City
-    </p>
-    <p>
-        @eventLocation.Region
-    </p>
-    <p>
-        @eventLocation.Distance
-    </p>
+    <EditForm Model="eventLocation">
+        <div class="row mb-3">
+            <div class="col-2">
+                <label class="col-form-label">Name</label>
+            </div>
+            <div class="col-6">
+                <InputText @bind-Value="eventLocation.Name" class="form-control"></InputText>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-2">
+                <label class="col-form-label">City</label>
+            </div>
+            <div class="col-6">
+                <InputText @bind-Value="eventLocation.City" class="form-control"></InputText>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-2">
+                <label class="col-form-label">Distance</label>
+            </div>
+            <div class="col-6">
+                <InputNumber @bind-Value="eventLocation.Distance" class="form-control"></InputNumber>
+            </div>
+        </div>
+    </EditForm>
 }
 
-<br />
 <a href="/eventlocations" class="btn btn-primary">Close</a>
 
 @code {
