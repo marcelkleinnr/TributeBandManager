@@ -1,5 +1,6 @@
 ﻿@page "/eventlocations/{Id:int}"
 @using TributeBandManager.Components.Models
+@inject NavigationManager NavigationManager
 
 <h3>Edit EventLocation</h3>
 <br />
@@ -83,6 +84,7 @@
         if (eventLocation != null)
         {
             EventLocationsRepository.UpdateEventLocation(eventLocation);
+            NavigationManager.NavigateTo("/eventlocations");
         }
     }
 }

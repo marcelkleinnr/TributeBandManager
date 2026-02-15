@@ -29,6 +29,10 @@
     }
 </ul>
 
+<p>
+    <a href="/eventlocations/add" class="btn btn-primary">Add Event Location</a>
+</p>
+
 @code {
     private List<EventLocation> eventLocations = EventLocationsRepository.GetEventLocations();
     private Dictionary<string, List<EventLocation>> eventLocationsByCity;

@@ -1,0 +1,76 @@
+﻿@page "/eventlocations/add"
+@inject NavigationManager NavigationManager
+
+@using TributeBandManager.Components.Models
+<h3>Add Event Location</h3>
+
+<EditForm Model="eventLocation" FormName="@formName" OnValidSubmit="Submit">
+    <DataAnnotationsValidator></DataAnnotationsValidator>
+    <ValidationSummary></ValidationSummary>
+    <InputNumber @bind-Value="eventLocation.Id" hidden></InputNumber>
+    <div class="row mb-3">
+        <div class="col-2">
+            <label class="col-form-label">Name</label>
+        </div>
+        <div class="col-6">
+            <InputText @bind-Value="eventLocation.Name" class="form-control"></InputText>
+        </div>
+        <div class="col">
+            <ValidationMessage For="() => eventLocation.Name"></ValidationMessage>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-2">
+            <label class="col-form-label">City</label>
+        </div>
+        <div class="col-6">
+            <InputText @bind-Value="eventLocation.City" class="form-control"></InputText>
+        </div>
+        <div class="col">
+            <ValidationMessage For="() => eventLocation.City"></ValidationMessage>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-2">
+            <label class="col-form-label">Region</label>
+        </div>
+        <div class="col-6">
+            <InputText @bind-Value="eventLocation.Region" class="form-control"></InputText>
+        </div>
+        <div class="col">
+            <ValidationMessage For="() => eventLocation.Region"></ValidationMessage>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-2">
+            <label class="col-form-label">Distance</label>
+        </div>
+        <div class="col-6">
+            <InputNumber @bind-Value="eventLocation.Distance" class="form-control"></InputNumber>
+        </div>
+        <div class="col">
+            <ValidationMessage For="() => eventLocation.Distance"></ValidationMessage>
+        </div>
+    </div>
+
+    <br />
+    <button class="btn btn-primary" type="submit">Save</button>
+    <br />
+    <br />
+    <a href="/eventlocations" class="btn btn-primary">Close</a>
+</EditForm>
+
+@code {
+    [SupplyParameterFromForm]
+    private EventLocation eventLocation { get; set; } = new EventLocation { Distance = 0 };
+    private const string formName = "formEventlocation";
+
+    private void Submit()
+    {
+        if (eventLocation != null)
+        {
+            EventLocationsRepository.AddEventLocation(eventLocation);
+            NavigationManager.NavigateTo("/eventlocations");
+        }
+    }
+}
