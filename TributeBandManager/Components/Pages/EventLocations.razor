@@ -25,6 +25,12 @@
             @eventLocation.Name in @eventLocation.City is @eventLocation.Distance km away.
             &nbsp;
             <a href="/eventlocations/@eventLocation.Id" class="btn btn-link">Edit</a>
+            &nbsp;
+            <EditForm Model="eventLocation"
+                      FormName=@($"form-eventlocation-{eventLocation.Id}")
+                      OnValidSubmit="() => DeleteEventLocation(eventLocation.Id)">
+                <button type="submit" class="btn btn-primary">Delete</button>
+            </EditForm>
         </li>
     }
 </ul>
@@ -47,5 +53,13 @@
     private void SetSelectedCity(string city)
     {
         NavigationManager.NavigateTo("/eventlocations/edit?city={city}");
+    }
+
+    private void DeleteEventLocation(int eventLocationId)
+    {
+        if (eventLocationId > 0)
+        {
+            EventLocationsRepository.DeleteEventLocation(eventLocationId);
+        }
     }
 }
