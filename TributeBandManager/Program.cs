@@ -3,7 +3,9 @@ using TributeBandManager.Components;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddRazorComponents();
+// AddInteractiveServerComponents enables interactive server-side rendering for Razor components instead of using SSR.
+builder.Services.AddRazorComponents()
+    .AddInteractiveServerComponents();
 
 var app = builder.Build();
 
@@ -20,6 +22,8 @@ app.UseHttpsRedirection();
 app.UseAntiforgery();
 
 app.MapStaticAssets();
-app.MapRazorComponents<App>();
+// AddInteractiveServerRenderMode enables interactive server-side rendering for Razor components instead of using SSR.
+app.MapRazorComponents<App>()
+    .AddInteractiveServerRenderMode();
 
 app.Run();

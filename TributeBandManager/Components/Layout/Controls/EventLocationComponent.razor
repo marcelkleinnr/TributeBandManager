@@ -2,36 +2,30 @@
 
 @if (@eventLocation != null)
 {
-    // The "Enhance" parameter of the EditForm component allows to trigger the "OnSubmit" event of the EditForm when a button inside the form is clicked, even if the button is not of type "submit".
-    // This is useful in this case, because we want to change the distance of the event location without submitting the form, which would reload the entire page.
-    <EditForm Enhance="true" Model="eventLocation" FormName="eventLocationForm" OnSubmit="ChangeEventLocationDistance">
-        <InputNumber @bind-Value="eventLocation.Id" hidden></InputNumber>
-        <InputText @bind-Value="eventLocation.Name" hidden></InputText>
-        <InputText @bind-Value="eventLocation.City" hidden></InputText>
-        <InputText @bind-Value="eventLocation.Region" hidden></InputText>
-        <InputNumber @bind-Value="eventLocation.Distance" hidden></InputNumber>
-        <div data-name="@eventLocation.Name"
-             data-status="Event Location is @(eventLocation.Distance > 0 ? "far away" : "right here")"
-             style="@($"color:{((eventLocation.Distance > 0) ? "red" : "green")}")">
-            @eventLocation.Name is in @eventLocation.City, @eventLocation.Region and is @(eventLocation.Distance > 0 ? "far away" : "right here").
-            &nbsp;
-            @* Button must be of type "submit" to trigger the "OnSubmit" event of the EditForm. *@
-            <button type="submit" class="btn btn-primary">Change Distance</button>
-        </div>
-    </EditForm>
+    <div data-name="@eventLocation.Name"
+         data-status="Event Location is @((eventLocation.Distance > 0) ? "far away" : "right here")"
+         style="@($"color:{((eventLocation.Distance > 0) ? "red" : "green")}")">
+        @eventLocation.Name is in @eventLocation.City, @eventLocation.Region and is @((eventLocation.Distance > 0) ? "far away" : "right here").
+        &nbsp;
+        @* To make this button click work, server interactivity must be enabled instead of SSR *@
+        <button type="button" class="btn btn-primary" @onclick="ChangeStatus">Change Distance</button>
+    </div>
 }
 
 @code {
     // This supply parameter works for "OnParameterSet" and "OnInitialized" lifecycle methods.
     [SupplyParameterFromForm]
-    private EventLocation? eventLocation { get; set; }
-
-    protected override void OnParametersSet()
-    {
-        eventLocation ??= new EventLocation { Name = "Rock am Rhein", City = "Andernach", Region = "Rheinland", Distance = 0 };
-    }
+    private EventLocation? eventLocation { get; set; } = new EventLocation { Name = "Rock am Rhein", City = "Andernach", Region = "Rheinland", Distance = 0 };
 
     private void ChangeEventLocationDistance()
+    {
+        if (eventLocation != null)
+        {
+            eventLocation.Distance = eventLocation.Distance == 0 ? 100 : 0;
+        }
+    }
+
+    private void ChangeStatus()
     {
         if (eventLocation != null)
         {

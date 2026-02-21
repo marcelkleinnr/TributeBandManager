@@ -14,16 +14,16 @@
                     <div class="card-body">
                         <button type="button" class="btn btn-primary" @onclick="() => SetSelectedCity(cityName)">@cityName</button>
                     </div>
-                </div>                
+                </div>
             </div>
         }
     </div>
 </div>
 
 <br />
-<p>
-    <EventLocationComponent></EventLocationComponent>
-</p>
+
+@*  AddInteractiveServerRenderMode enables interactive server-side rendering for Razor components instead of using SSR. *@
+<EventLocationComponent @rendermode="InteractiveServer"></EventLocationComponent>
 
 <ul>
     @foreach (EventLocation eventLocation in eventLocations.Where(e => e.City == "Andernach"))
