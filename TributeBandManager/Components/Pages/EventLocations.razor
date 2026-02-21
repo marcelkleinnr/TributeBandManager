@@ -10,19 +10,29 @@
         @foreach (string cityName in eventLocationsByCity.Keys)
         {
             <div class="col">
-                <button type="button" class="btn btn-primary" @onclick="() => SetSelectedCity(cityName)">@cityName</button>
+                <div class="card">
+                    <div class="card-body">
+                        <button type="button" class="btn btn-primary" @onclick="() => SetSelectedCity(cityName)">@cityName</button>
+                    </div>
+                </div>                
             </div>
         }
     </div>
 </div>
 
 <br />
+<p>
+    <EventLocationComponent></EventLocationComponent>
+</p>
 
 <ul>
     @foreach (EventLocation eventLocation in eventLocations.Where(e => e.City == "Andernach"))
     {
         <li>
             @eventLocation.Name in @eventLocation.City is @eventLocation.Distance km away.
+            <span style="color:@(((eventLocation.Distance > 0) ? "red" : "green"))">
+                @(eventLocation.Distance > 0 ? "far away" : "right here")
+            </span>
             &nbsp;
             <a href="/eventlocations/@eventLocation.Id" class="btn btn-link">Edit</a>
             &nbsp;
