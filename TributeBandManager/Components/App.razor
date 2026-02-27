@@ -15,7 +15,9 @@
 </head>
 
 <body>
-    <Routes />
+    @* This router component can be set to Interactive Server or Interactive Web Assembly rendering mode for the entire application that it routes 
+        This is recommended by Microsoft. *@
+    <Routes @rendermode="InteractiveServer"/>
     <script src="@Assets["_framework/blazor.web.js"]"></script>
 </body>
 
