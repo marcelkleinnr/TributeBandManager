@@ -1,8 +1,7 @@
 ﻿@page "/eventlocations"
 
 @* Sets the render mode to Interactive Server for this entire component 
-    Reommended to specify the render mode outside of the component
-*@
+    Recommended to specify the render mode outside of the component*@
 @* @rendermode InteractiveServer *@
 
 @using TributeBandManager.Components.Models
@@ -16,9 +15,9 @@
         @foreach (string cityName in eventLocationsByCity.Keys)
         {
             <div class="col">
-                <div class="card">
+                <div class="card @(cityName == selectedCity ? "border-primary" : "")">
                     <div class="card-body">
-                        <button type="button" class="btn btn-primary" @onclick="() => SetSelectedCity(cityName)">@cityName</button>
+                        <button type="button" class="btn btn-primary" @onclick="() => SelectCity(cityName)">@cityName</button>
                     </div>
                 </div>
             </div>
@@ -28,13 +27,8 @@
 
 <br />
 
-@*  AddInteractiveServerRenderMode enables interactive server-side rendering for Razor components instead of using SSR.
-    Alternatively. this can be set for the entire component by using @rendermode InteractiveServer at the top of this file.*@
-@* <EventLocationComponent @rendermode="InteractiveServer"></EventLocationComponent> *@
-<EventLocationComponent @rendermode="InteractiveServer"></EventLocationComponent>
-
 <ul>
-    @foreach (EventLocation eventLocation in eventLocations.Where(e => e.City == "Andernach"))
+    @foreach (EventLocation eventLocation in eventLocations)
     {
         <li>
             @eventLocation.Name in @eventLocation.City is @eventLocation.Distance km away.
@@ -60,6 +54,7 @@
 @code {
     private List<EventLocation> eventLocations = EventLocationsRepository.GetEventLocations();
     private Dictionary<string, List<EventLocation>> eventLocationsByCity;
+    private string selectedCity = "Andernach";
 
     protected override void OnInitialized()
     {
@@ -68,9 +63,11 @@
             .ToDictionary(g => g.Key, g => g.ToList());
     }
 
-    private void SetSelectedCity(string city)
+    private void SelectCity(string city)
     {
-        NavigationManager.NavigateTo("/eventlocations/edit?city={city}");
+        selectedCity = city;
+
+        eventLocations = EventLocationsRepository.GetEventLocationsByCity(selectedCity);
     }
 
     private void DeleteEventLocation(int eventLocationId)
