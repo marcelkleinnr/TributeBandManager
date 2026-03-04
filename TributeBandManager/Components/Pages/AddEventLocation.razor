@@ -4,7 +4,7 @@
 @using TributeBandManager.Components.Models
 <h3>Add Event Location</h3>
 
-<EditForm Model="eventLocation" FormName="@formName" OnValidSubmit="Submit">
+<EditForm Model="eventLocation" OnValidSubmit="Submit">
     <DataAnnotationsValidator></DataAnnotationsValidator>
     <ValidationSummary></ValidationSummary>
     <InputNumber @bind-Value="eventLocation.Id" hidden></InputNumber>
@@ -61,7 +61,6 @@
 </EditForm>
 
 @code {
-    [SupplyParameterFromForm]
     private EventLocation eventLocation { get; set; } = new EventLocation { Distance = 0 };
     private const string formName = "formEventlocation";
 
