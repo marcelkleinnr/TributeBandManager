@@ -28,16 +28,15 @@
 <br />
 
 <div class="input-group mb-3">
-    <input type="text" class="form-control" @bind-value="searchFilter" @bind-value:event="oninput"/>
+    <input type="text" class="form-control" @bind-value="searchFilter" @bind-value:event="oninput" />
     <button class="btn btn-outline-secondary" type="button" id="button-search" @onclick="HandleEventLocationSerach">Search</button>
 </div>
 
 <br />
 
 <ul>
-    @foreach (EventLocation eventLocation in eventLocations)
-    {
-        // The (unique) key is used to identify each object, so that the entire list must not be updated constantly when changes occur.
+    <Virtualize Items="eventLocations" Context="eventLocation">
+        @* The (unique) key is used to identify each object, so that the entire list must not be updated constantly when changes occur. *@
         <li @key="eventLocation.Id">
             @eventLocation.Name in @eventLocation.City is @eventLocation.Distance km away.
             <span style="color:@(((eventLocation.Distance > 0) ? "red" : "green"))">
@@ -52,7 +51,7 @@
                 <button type="submit" class="btn btn-primary">Delete</button>
             </EditForm>
         </li>
-    }
+    </Virtualize>
 </ul>
 
 <p>
@@ -81,7 +80,7 @@
             _searchFilter = value;
             eventLocations = EventLocationsRepository.SearchEventLocations(searchFilter);
         }
-    } 
+    }
 
     protected override void OnInitialized()
     {
@@ -95,6 +94,14 @@
         selectedCity = city;
 
         eventLocations = EventLocationsRepository.GetEventLocationsByCity(selectedCity);
+
+        if (city == "Andernach")
+        {
+            for (int i = 20; i < 10000; i++)
+            {
+                eventLocations.Add(new EventLocation { Id = i, Name = $"EventLocation{i}", City = "Andernach" });
+            }
+        }
     }
 
     private void DeleteEventLocation(int eventLocationId)
