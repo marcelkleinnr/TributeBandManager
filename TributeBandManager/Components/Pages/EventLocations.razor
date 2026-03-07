@@ -58,12 +58,6 @@
     <a href="/eventlocations/add" class="btn btn-primary">Add Event Location</a>
 </p>
 
-<p>
-    <button class="btn btn-secondary" @onclick="@(() => eventLocations.Insert(0, new EventLocation { Name = "Neues Festival", City = "Festival City" }))">
-        Add Event Location 2
-    </button>
-</p>
-
 @code {
     private List<EventLocation> eventLocations = EventLocationsRepository.GetEventLocations();
     private Dictionary<string, List<EventLocation>> eventLocationsByCity;
@@ -94,14 +88,6 @@
         selectedCity = city;
 
         eventLocations = EventLocationsRepository.GetEventLocationsByCity(selectedCity);
-
-        if (city == "Andernach")
-        {
-            for (int i = 20; i < 10000; i++)
-            {
-                eventLocations.Add(new EventLocation { Id = i, Name = $"EventLocation{i}", City = "Andernach" });
-            }
-        }
     }
 
     private void DeleteEventLocation(int eventLocationId)
