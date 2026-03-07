@@ -37,7 +37,8 @@
 <ul>
     @foreach (EventLocation eventLocation in eventLocations)
     {
-        <li>
+        // The (unique) key is used to identify each object, so that the entire list must not be updated constantly when changes occur.
+        <li @key="eventLocation.Id">
             @eventLocation.Name in @eventLocation.City is @eventLocation.Distance km away.
             <span style="color:@(((eventLocation.Distance > 0) ? "red" : "green"))">
                 @(eventLocation.Distance > 0 ? "far away" : "right here")
@@ -56,6 +57,12 @@
 
 <p>
     <a href="/eventlocations/add" class="btn btn-primary">Add Event Location</a>
+</p>
+
+<p>
+    <button class="btn btn-secondary" @onclick="@(() => eventLocations.Insert(0, new EventLocation { Name = "Neues Festival", City = "Festival City" }))">
+        Add Event Location 2
+    </button>
 </p>
 
 @code {
