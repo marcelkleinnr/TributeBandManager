@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace TributeBandManager.Components.Models
+namespace TributeBandManager.Components.Models.EventLocations
 {
     public class EventLocation
     {

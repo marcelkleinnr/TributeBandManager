@@ -1,0 +1,16 @@
+﻿@page "/todolist"
+@using TributeBandManager.Components.Models.ToDos
+
+<h3>To Do</h3>
+
+<button @onclick="AddTask"> Add Task </button>
+
+@code {
+    private List<ToDo> tasks = ToDoRepository.GetToDos();
+
+    private void AddTask()
+    {
+        ToDoRepository.AddToDo(toDo);
+        tasks = ToDoRepository.GetToDos().OrderByDescending(tasks => tasks.Id).ToList();
+    }
+}

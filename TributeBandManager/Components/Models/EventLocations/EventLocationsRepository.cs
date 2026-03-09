@@ -1,4 +1,4 @@
-﻿namespace TributeBandManager.Components.Models
+﻿namespace TributeBandManager.Components.Models.EventLocations
 {
     public static class EventLocationsRepository
     {
