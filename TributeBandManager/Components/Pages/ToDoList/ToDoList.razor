@@ -1,24 +1,31 @@
 ﻿@page "/todolist"
+@inject NavigationManager NavigationManager
 @using TributeBandManager.Components.Models.ToDos
 
 <h3>To Do</h3>
 
+<button class="btn btn-primary" @onclick="AddTask"> Add Task </button>
+<br />
+<br />
 @if (tasks != null)
 {
     @foreach (ToDo task in tasks)
     {
-        <p>@task.Name</p>
+        <div class="mb-2">
+            <div class="form-check d-flex align-items-center">
+                <InputCheckbox id="@($"todo-{task.Id}")" class="form-check-input" @bind-Value="task.Completed" />
+                <label class="form-check-label ms-2" for="@($"todo-{task.Id}")">@task.Name</label>
+            </div>
+        </div>
     }
 }
-
-<button @onclick="AddTask"> Add Task </button>
 
 @code {
     private List<ToDo> tasks = ToDoRepository.GetToDos();
 
     private void AddTask()
     {
-        ToDoRepository.AddToDo();
-        tasks = ToDoRepository.GetToDos().OrderByDescending(tasks => tasks.Id).ToList();
+        NavigationManager.NavigateTo("/todolist/add");
+        //tasks = ToDoRepository.GetToDos().OrderByDescending(tasks => tasks.Id).ToList();
     }
 }
