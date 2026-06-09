@@ -3,29 +3,40 @@
 @using TributeBandManager.Components.Models.ToDos
 
 <h3>To Do</h3>
+<br />
 
-<button class="btn btn-primary" @onclick="AddTask"> Add Task </button>
+<button class="btn btn-primary" type="button" id="button-add" @onclick="AddTask"> Add Task </button>
 <br />
-<br />
-@if (tasks != null)
+@if (tasks != null && tasks.Count > 0)
 {
-    @foreach (ToDo task in tasks)
-    {
-        <div class="mb-2">
-            <div class="form-check d-flex align-items-center">
-                <InputCheckbox id="@($"todo-{task.Id}")" class="form-check-input" @bind-Value="task.Completed" />
-                <label class="form-check-label ms-2" for="@($"todo-{task.Id}")">@task.Name</label>
-            </div>
-        </div>
-    }
+    <ul>
+        @foreach (ToDoItem task in tasks)
+        {
+            <li @key="task" class="mb-2">
+                <div class="d-flex align-items-center">
+                    <InputCheckbox id="@($"todo-{task.Id}")" @bind-Value="task.Completed" @onclick="(() => SetTaskCompleted(task))" />
+                    <InputText disabled="@task.Completed" @bind-Value="@task.Name" class="ms-2" for="@($"todo-{task.Id}")" style="@(task.Completed ? "text-decoration: line-through" : "")"></InputText>
+                    @if (task.Completed)
+                    {
+                        <label>@task.TimeStampCompleted</label>
+                    }
+                </div>
+            </li>
+        }
+    </ul>
 }
 
 @code {
-    private List<ToDo> tasks = ToDoRepository.GetToDos();
+    private List<ToDoItem> tasks = ToDoItemRepository.GetToDos();
 
     private void AddTask()
     {
-        NavigationManager.NavigateTo("/todolist/add");
-        //tasks = ToDoRepository.GetToDos().OrderByDescending(tasks => tasks.Id).ToList();
+        ToDoItemRepository.AddToDo(new ToDoItem { });
+        tasks = ToDoItemRepository.GetToDos();
+    }
+
+    private void SetTaskCompleted(ToDoItem task)
+    {
+        task.TimeStampCompleted = DateTime.Now;
     }
 }

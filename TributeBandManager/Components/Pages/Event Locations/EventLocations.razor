@@ -30,7 +30,7 @@
 
 <div class="input-group mb-3">
     <input type="text" class="form-control" @bind-value="searchFilter" @bind-value:event="oninput" />
-    <button class="btn btn-outline-secondary" type="button" id="button-search" @onclick="HandleEventLocationSerach">Search</button>
+    <button class="btn btn-outline-secondary" type="button" id="button-search" @onclick="HandleEventLocationSearch">Search</button>
 </div>
 
 <br />
@@ -99,7 +99,7 @@
         }
     }
 
-    private void HandleEventLocationSerach()
+    private void HandleEventLocationSearch()
     {
         eventLocations = EventLocationsRepository.SearchEventLocations(searchFilter);
 
